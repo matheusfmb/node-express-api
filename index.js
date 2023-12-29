@@ -8,6 +8,7 @@ dotenv.config()
 connectToDB()
 
 const userRoutes = require("./src/routes/userRoutes");
+app.use(express.json());
 app.use("/api", userRoutes); 
 
 

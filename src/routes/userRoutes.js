@@ -1,19 +1,19 @@
 const express = require("express");
+const UserModel = require("../models/user.model")
 const router = express.Router();
 
-router.get("/users", (req, res) => {
-    const users = [
-        {
-            id: 1,
-            username: "usuario1",
-            email: "usuario1@example.com"
-        },
-        {
-            id: 2,
-            username: "usuario2",
-            email: "usuario2@example.com"
-        }];
-    res.status(200).send(users);
+router.post("/users", async (req, res) => {
+    try {
+        const user = await UserModel.create(req.body)
+        res.status(201).send(user)
+    }catch (error){
+        res.status(500).send(error.message);
+    }
 });
+
+router.get("/users", (req, res) =>{
+    res.status(201).send("Olá")
+});
+
 
 module.exports = router;
