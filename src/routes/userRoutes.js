@@ -11,8 +11,13 @@ router.post("/users", async (req, res) => {
     }
 });
 
-router.get("/users", (req, res) =>{
-    res.status(201).send("Olá")
+router.get("/users", async (req, res) =>{
+    try{
+        const users = await UserModel.find({});
+        res.status(200).send(users)
+    }catch (error){
+        res.status(500).send(error.message)
+    }
 });
 
 
