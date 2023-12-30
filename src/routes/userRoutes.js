@@ -1,6 +1,7 @@
 const express = require("express");
 const userDTO = require("../models/userDTO")
 const UserModel = require("../models/user.model");
+const authMiddleware = require("../auth/authMiddleware")
 const router = express.Router();
 
 router.post("/users", async (req, res) => {
@@ -13,7 +14,7 @@ router.post("/users", async (req, res) => {
     }
 });
 
-router.get("/users", async (req, res) =>{
+router.get("/users", authMiddleware, async (req, res) =>{
     try{
         const users = await UserModel.find({});
         if(users.length === 0){
