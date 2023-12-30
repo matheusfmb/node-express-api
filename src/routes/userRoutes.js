@@ -4,6 +4,8 @@ const UserModel = require("../models/user.model");
 const authMiddleware = require("../auth/authMiddleware")
 const router = express.Router();
 
+
+//CREATE AN USER
 router.post("/users", async (req, res) => {
     try {
         const user = await UserModel.create(req.body)
@@ -14,6 +16,8 @@ router.post("/users", async (req, res) => {
     }
 });
 
+
+//FIND ALL USERS.
 router.get("/users", authMiddleware, async (req, res) =>{
     try{
         const users = await UserModel.find({});
@@ -27,6 +31,7 @@ router.get("/users", authMiddleware, async (req, res) =>{
     }
 });
 
+//FIND AN USER BY ID.
 router.get('/users/:id', async (req, res) => {
     try {
         const id = req.params.id;
@@ -42,6 +47,7 @@ router.get('/users/:id', async (req, res) => {
     }
 });
 
+//DELETE AN USER BY ID
 router.delete('/users/:id', async (req, res) => {
     try {
        const id = req.params.id
@@ -56,6 +62,7 @@ router.delete('/users/:id', async (req, res) => {
         return res.status(500).send(error.message);
     }
 });
+
 
 
 
