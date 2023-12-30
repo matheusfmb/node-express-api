@@ -4,7 +4,7 @@ const authMiddleware = require("../auth/authMiddleware")
 const router = express.Router();
 
 
-//CREATE AN TASK
+//CREATE A TASK
 router.post("/tasks", async (req, res) => {
   try {
     const { title, description, CreationDate, status, userId } = req.body;
@@ -34,7 +34,7 @@ router.get("/tasks/:userId", async (req, res) =>{
     }
 });
 
-
+//DELETE TASK By ID
 router.delete("/tasks/:taskId" , async (req, res) =>{
   try{
     const taskId = req.params.taskId;
@@ -48,7 +48,25 @@ router.delete("/tasks/:taskId" , async (req, res) =>{
   }catch(error){
     return res.status(500).send({error: error.message})
   }
-})
+});
+
+//UPDATE A TASK By Id.
+router.patch("/tasks/:taskId", async (req, res) => {
+  const taskId = req.params.taskId;
+  const updates = req.body;
+  try {
+    const updatedTask = await TaskModel.findByIdAndUpdate(taskId, updates, { new: true });
+
+    if (!updatedTask) {
+      return res.status(404).send({error: error.message});
+    }else{
+      return res.status(200).send(updatedTask);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({error: error.message});
+  }
+});
 
 
 module.exports = router;
