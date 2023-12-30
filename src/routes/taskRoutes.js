@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 //CREATE A TASK
-router.post("/tasks", async (req, res) => {
+router.post("/tasks",authMiddleware, async (req, res) => {
   try {
     const { title, description, CreationDate, status, userId } = req.body;
     const newTask = await TaskModel.create({
@@ -24,7 +24,7 @@ router.post("/tasks", async (req, res) => {
 });
 
 //GET TASKS BY UserID.
-router.get("/tasks/:userId", async (req, res) =>{
+router.get("/tasks/:userId",authMiddleware, async (req, res) =>{
     try{
         const userId = req.params.userId;
         const tasks = await TaskModel.find({ user: userId });
@@ -35,7 +35,7 @@ router.get("/tasks/:userId", async (req, res) =>{
 });
 
 //DELETE TASK By ID
-router.delete("/tasks/:taskId" , async (req, res) =>{
+router.delete("/tasks/:taskId",authMiddleware, async (req, res) =>{
   try{
     const taskId = req.params.taskId;
     const task = await TaskModel.findById(taskId)
@@ -51,7 +51,7 @@ router.delete("/tasks/:taskId" , async (req, res) =>{
 });
 
 //UPDATE A TASK By Id.
-router.patch("/tasks/:taskId", async (req, res) => {
+router.patch("/tasks/:taskId",authMiddleware, async (req, res) => {
   const taskId = req.params.taskId;
   const updates = req.body;
   try {

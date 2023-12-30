@@ -32,7 +32,7 @@ router.get("/users", authMiddleware, async (req, res) =>{
 });
 
 //FIND AN USER BY ID.
-router.get('/users/:id', async (req, res) => {
+router.get('/users/:id', authMiddleware, async (req, res) => {
     try {
         const id = req.params.id;
         const user = await UserModel.findById(id);
@@ -48,7 +48,7 @@ router.get('/users/:id', async (req, res) => {
 });
 
 //DELETE AN USER BY ID
-router.delete('/users/:id', async (req, res) => {
+router.delete('/users/:id', authMiddleware, async (req, res) => {
     try {
        const id = req.params.id
        const user = await UserModel.findById(id)
