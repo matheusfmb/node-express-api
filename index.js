@@ -12,8 +12,6 @@ const auth = require("./src/routes/auth");
 const taskRoutes = require("./src/routes/taskRoutes")
 
 app.use(express.json())
-app.use("/api", userRoutes)
-app.use("/api", taskRoutes)
-app.use("/api", auth)
+app.use("/api", userRoutes,taskRoutes,auth)
 
 app.listen(port, () => console.log(`Server Rodando na porta ${port}!`));
