@@ -25,5 +25,5 @@ const taskSchema = moongose.Schema({
     }
 })
 
-const TaskModel = mongoose.model("Task", taskSchema);
+const TaskModel = moongose.model("Task", taskSchema);
 module.exports = TaskModel;
