@@ -6,11 +6,7 @@ const authMiddleware = async (req, res, next) => {
         const secretKey = process.env.SECRET_KEY_JWT;
 
         const rawToken = req.header("Authorization");
-        console.log("Token bruto:", rawToken);
-
         const token = rawToken.replace(/Bearer\s+/gi, "");
-        console.log("Token sem prefixo:", token);
-
 
         const decoded = jwt.verify(token, secretKey);
 
